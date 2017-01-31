@@ -2,9 +2,19 @@ NAME=$(notdir $(PWD))
 
 ARCH?=x86
 
-#CFLAGS=-g -Wall -Wa,-ahdlcs=$@.lst $(EXTRA_CFLAGS)
-CFLAGS=-g -Wall $(EXTRA_CFLAGS)
+#CFLAGS=-g -Wall -Werror -Wa,-ahdlcs=$@.lst $(EXTRA_CFLAGS)
+CFLAGS=-g -Wall -Werror $(EXTRA_CFLAGS)
 LDFLAGS=$(EXTRA_LDFLAGS)
+
+ifeq ($(ARCH),x86)
+EXTRA_CFLAGS=-m32
+EXTRA_LDFLAGS=-m32
+endif
+
+ifeq ($(ARCH),x86_64)
+EXTRA_CFLAGS=-m64
+EXTRA_LDFLAGS=-m64
+endif
 
 ifeq ($(ARCH),mips)
 CC             = 
